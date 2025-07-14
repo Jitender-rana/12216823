@@ -1,0 +1,61 @@
+/* Center the card */
+.form-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: #f0f2f5;
+}
+
+/* Card styles */
+.card {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* standard card shadow :contentReference[oaicite:1]{index=1} */
+  max-width: 400px;
+  width: 100%;
+}
+
+/* Input styles */
+.card h1 {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+.card label {
+  font-weight: 500;
+}
+.card input {
+  width: 100%;
+  padding: 0.5rem;
+  margin: 0.3rem 0 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.card input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Submit button */
+.card button {
+  width: 100%;
+  padding: 0.7rem;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.card button:hover {
+  background: #0056b3;
+}
+
+/* Response section */
+.result {
+  margin-top: 1.5rem;
+  background: #e9f7ef;
+  padding: 1rem;
+  border-radius: 4px;
+  word-wrap: break-word;
+}

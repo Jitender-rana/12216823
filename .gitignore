@@ -1,0 +1,36 @@
+# Ignore all local environment files
+**/.env
+**/.env.local
+**/.env.*.local
+
+# Ignore all node_modules directories
+**/node_modules/
+
+# Optional: ignore Prisma generated client if you're customizing it
+**/prisma/generated/
+
+# Ignore build/output folders
+**/dist/
+**/build/
+**/.next/
+**/.turbo/
+**/coverage/
+
+# OS/macOS/IDE specific files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Lock files (optional; remove if you want to commit them)
+# package-lock.json
+# yarn.lock
+
+# Ignore Docker config if not needed (optional)
+docker-compose.override.yml
