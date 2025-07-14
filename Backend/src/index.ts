@@ -1,5 +1,9 @@
 import express from 'express'
 import { PrismaClient } from '@prisma/client';
+import { logStack,levelStack,pkgStack } from './utils/types';
+import { logger} from './middleware/logger';
+
+
 import cors from "cors";
 const prisma = new PrismaClient();
 
@@ -7,6 +11,10 @@ const app = express()
 
 app.use(express.json())
 app.use(cors());
+app.use(async (req, res, next) => {
+  await logger(logStack.backend, levelStack.info, pkgStack.route, `Incoming ${req.method} ${req.path}`);
+  next();
+});
 
 app.post('/shortlinks', async (req, res) => {
   const { url, validity, shortcode } = req.body

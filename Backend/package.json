@@ -20,6 +20,8 @@
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "prisma": "^6.11.1",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "loggermiddleware": "file:../loggermiddleware"
+
   }
 }
