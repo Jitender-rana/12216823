@@ -1,6 +1,6 @@
 # 🚀 Project Monorepo Setup
 
-This repository contains three sub-projects:
+This repo contains three sub-projects:
 
 frontend/
 backend/
@@ -14,26 +14,26 @@ Edit
 
 ## 🧪 Prerequisites
 
-- **Node.js** (v22.x recommended)  
-- **npm** or **yarn**  
-- **Docker** & **Docker Compose**
+- Node.js (v22.x recommended)  
+- npm or yarn  
+- Docker & Docker Compose
 
 ---
 
 ## 🔧 Backend Setup (`backend/`)
 
-### 1. Configure Environment Variables
+### ⚠️ Logger Middleware is **required**
 
-Create a `.env` file in `backend/` with the following:
+The backend must use the shared logger middleware to record all requests and errors.
 
+### 1. Configure `.env`
+
+In `backend/.env`:
 ```env
 DATABASE_URL="postgresql://postgres:yourpassword@localhost:5432/affordmedical"
 PORT=3000
-✅ Replace yourpassword with a password of your choice.
-
-2. Start PostgreSQL with Docker
-Run this command from the project root or inside backend/:
-
+TOKEN=your_logging_service_token
+2. Start PostgreSQL via Docker
 bash
 Copy
 Edit
@@ -43,41 +43,66 @@ docker run --name pg-dev \
   -e POSTGRES_DB=affordmedical \
   -p 5432:5432 \
   -d postgres
-This will launch a local PostgreSQL instance on port 5432.
+3. Build & Install Logger Middleware
+bash
+Copy
+Edit
+cd logger-middleware
+npm install
+npm run build
+In backend/package.json, add:
 
-3. Install Dependencies & Generate Prisma Client
+json
+Copy
+Edit
+"dependencies": {
+  "loggermiddleware": "file:../logger-middleware",
+  ...
+}
+Then install in backend:
+
+bash
+Copy
+Edit
+cd ../backend
+npm install
+4. Generate Prisma Client
 bash
 Copy
 Edit
 cd backend
 npm install prisma @prisma/client
 npx prisma generate
-Make sure your prisma/schema.prisma file matches the provided schema.
-
-4. Run Migrations
+5. Run Database Migrations
 bash
 Copy
 Edit
 npx prisma migrate dev --name init
-If you'd like to reset the database during development, run:
+To reset during development:
 
 bash
 Copy
 Edit
 npx prisma migrate reset
-5. Start the Backend Server
+6. Integrate Logger Middleware
+In backend/src/index.ts, add:
+
+ts
+Copy
+Edit
+import { requestLogger, errorLogger } from 'loggermiddleware'
+
+app.use(requestLogger)
+// ... your routes ...
+app.use(errorLogger)
+7. Start Backend Server
 bash
 Copy
 Edit
-npm install
-npm run build       # if using TypeScript (output to dist/)
-npm run start       # or use node dist/index.js
-Your API will be available at:
+npm run build
+npm run start
+Runs on http://localhost:3000/
 
-arduino
-Copy
-Edit
-http://localhost:3000/
 🌐 Frontend Setup (frontend/)
 bash
 Copy
@@ -85,15 +110,13 @@ Edit
 cd frontend
 npm install
 npm run dev
-The React + Vite app will launch on:
+Runs on http://localhost:5173/
 
-arduino
-Copy
-Edit
-http://localhost:5173/
 🧩 Logger Middleware (logger-middleware/)
-If this folder contains a reusable logger package:
+Provides:
 
-Add it as a dependency in backend/package.json (e.g. local reference)
+requestLogger(req, res, next)
 
-Import and use it in your backend server.
+errorLogger(err, req, res, next)
+
+These are required in the backend and must be built before use.

@@ -1,5 +1,13 @@
 {
   "name": "loggermiddleware",
+  "exports":{
+    "./logger": "./src/index.ts",
+    "./logStack": "./src/index.ts",
+    "./levelStack": "./src/index.ts",
+    "./pkgStack": "./src/index.ts"
+
+
+  },
   "version": "1.0.0",
   "description": "",
   "main": "index.js",

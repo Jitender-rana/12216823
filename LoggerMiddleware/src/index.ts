@@ -2,20 +2,20 @@ import axios from "axios";
 import dotenv from "dotenv";
 dotenv.config();
 const token = process.env.TOKEN;
-enum logStack{
+export enum logStack{
     frontend = "frontend",
     backend = "backend",
 
 
 }
-enum levelStack{
+export enum levelStack{
     debug= "debug",
     info= "info",
     warn= "warn",
     error="error",
     fatal="fatal"
 }
-enum pkgStack{
+export enum pkgStack{
     cache="cache",
     controller="controller",
     cron_job="cron_job",
